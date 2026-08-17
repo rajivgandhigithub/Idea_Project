@@ -4,5 +4,5 @@ jobs:
   build:
     runs-on: ubuntu-latest
     run: |
-      echo: "Build is in progress"
-      echo: "Build is Completed"
+      echo "Build is in progress"
+      echo "Build is Completed"
