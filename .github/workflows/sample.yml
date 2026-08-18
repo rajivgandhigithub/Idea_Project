@@ -9,22 +9,22 @@ on:
         default: 'Please-Select-ENV'
         type: choice
         options:
+          - Please-Select-ENV
           - dev
           - UAT
-          - Prod
 
 jobs:
   dev-build:
+    if: ${{ github.event.inputs.select-env == 'dev' }}
     runs-on: ubuntu-latest
     steps:
       - name: step1 - dev
-        if: ${{ github.event.inputs.select-env == 'dev' }}
         run: echo "Done in dev"
 
-      - name: step2 - UAT
-        if: ${{ github.event.inputs.select-env == 'UAT' }}
+  UAT-build:
+    if: ${{ github.event.inputs.select-env == 'UAT' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1 - UAT
         run: echo "Done in UAT"
 
-      - name: step3 - Prod
-        if: ${{ github.event.inputs.select-env == 'Prod' }}
-        run: echo "Done in Prod"
