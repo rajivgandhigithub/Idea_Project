@@ -1,28 +1,30 @@
-name: Context-Workflow
+name: if-condition
 
-on: push
+on:
+  workflow_dispatch:
+    inputs:
+      select-env:
+        description: 'ENV selection'
+        required: true
+        default: 'Please-Select-ENV'
+        type: choice
+        options:
+          - dev
+          - UAT
+          - Prod
 
 jobs:
-  show-context:
+  dev-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Show GitHub context
-        run: |
-          echo "Repository: ${{ github.repository }}"
-          echo "Branch: ${{ github.ref }}"
-          echo "Actor: ${{ github.actor }}"
-          echo "Event: ${{ github.event_name }}"
-          echo "Workflow: ${{ github.workflow }}"
-          echo "Run ID: ${{ github.run_id }}"
-          echo "Commit SHA: ${{ github.sha }}"
+      - name: step1 - dev
+        if: ${{ github.event.inputs.select-env == 'dev' }}
+        run: echo "Done in dev"
 
-      - name: Show Job context
-        run: |
-          echo "Job ID: ${{ job.id }}"
-          echo "Job Status: ${{ job.status }}"
+      - name: step2 - UAT
+        if: ${{ github.event.inputs.select-env == 'UAT' }}
+        run: echo "Done in UAT"
 
-      - name: Show Runner context
-        run: |
-          echo "Runner OS: ${{ runner.os }}"
-          echo "Runner Arch: ${{ runner.arch }}"
-          echo "Runner Temp: ${{ runner.temp }}"
+      - name: step3 - Prod
+        if: ${{ github.event.inputs.select-env == 'Prod' }}
+        run: echo "Done in Prod"
