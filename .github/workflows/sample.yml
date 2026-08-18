@@ -1,16 +1,26 @@
+name: Input Example
 on:
   workflow_dispatch:
     inputs:
-      runTests:
-        description: 'Run tests before build?'
+      environment:
+        description: 'Select environment'
         required: true
-        default: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - stage
+          - prod
+      runTests:
+        description: 'Run tests?'
+        required: true
+        default: false
         type: boolean
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Conditional step
-        if: ${{ github.event.inputs.runTests == 'true' }}
-        run: echo "Running tests..."
+      - run: echo "Deploying to ${{ github.event.inputs.environment }}"
+      - if: ${{ github.event.inputs.runTests == 'true' }}
+        run: echo "Tests are enabled"
