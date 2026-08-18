@@ -1,10 +1,19 @@
 name: Test-workflow
-on: push
+on: workflow_call
 jobs:
-  build:
+  build-1:
     runs-on: ubuntu-latest
     steps:
       - name: echo test
         run: |
           echo "Build is in progress"
           echo "Build is Completed"
+  build-2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: parallel job
+        run: echo "parallel job"
+      - name: Another parallel job
+        run: echo "Another steps"
+           
+          
