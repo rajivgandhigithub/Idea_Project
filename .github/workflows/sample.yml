@@ -3,6 +3,8 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    run: |
-      echo "Build is in progress"
-      echo "Build is Completed"
+    steps:
+      - name: echo test
+        run: |
+          echo "Build is in progress"
+          echo "Build is Completed"
