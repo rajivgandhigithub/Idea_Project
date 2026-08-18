@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step 1 - set variable
-        run: echo "MY_VAR=Hello Rajiv" >> $GITHUB_OUTPUT
+        run: echo "MY_VAR=Hello Rajiv" >> $GITHUB_ENV
 
       - name: Step 2 - use variable
         run: echo "Value is $MY_VAR"
