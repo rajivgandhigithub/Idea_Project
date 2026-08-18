@@ -1,26 +1,28 @@
-name: Input Example
-on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Select environment'
-        required: true
-        default: 'dev'
-        type: choice
-        options:
-          - dev
-          - stage
-          - prod
-      runTests:
-        description: 'Run tests?'
-        required: true
-        default: false
-        type: boolean
+name: Context-Workflow
+
+on: push
 
 jobs:
-  build:
+  show-context:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Deploying to ${{ github.event.inputs.environment }}"
-      - if: ${{ github.event.inputs.runTests == 'true' }}
-        run: echo "Tests are enabled"
+      - name: Show GitHub context
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Commit SHA: ${{ github.sha }}"
+
+      - name: Show Job context
+        run: |
+          echo "Job ID: ${{ job.id }}"
+          echo "Job Status: ${{ job.status }}"
+
+      - name: Show Runner context
+        run: |
+          echo "Runner OS: ${{ runner.os }}"
+          echo "Runner Arch: ${{ runner.arch }}"
+          echo "Runner Temp: ${{ runner.temp }}"
