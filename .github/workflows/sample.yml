@@ -4,15 +4,20 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'version information'
+        description: 'Version information'
         required: true
         default: '1.0.1'
       environment:
-        description: 'environment information'
+        description: 'Select environment'
         required: true
         default: 'dev'
+        type: choice
+        options:
+          - dev
+          - stage
+          - prod
       owner:
-        description: 'owner information'
+        description: 'Owner information'
         required: true
         default: 'Rajiv'
 
@@ -20,12 +25,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: step1-display
+      - name: Display inputs
         run: |
           echo "Version: ${{ github.event.inputs.version }}"
           echo "Environment: ${{ github.event.inputs.environment }}"
           echo "Owner: ${{ github.event.inputs.owner }}"
-
-     
-    
-  
