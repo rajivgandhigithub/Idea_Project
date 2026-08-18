@@ -1,5 +1,5 @@
 name: Test-workflow
-on: workflow_call
+on: workflow_dispatch
 jobs:
   build-1:
     runs-on: ubuntu-latest
