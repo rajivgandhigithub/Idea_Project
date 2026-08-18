@@ -1,32 +1,16 @@
-name: Input-Workflow
-
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version information'
+      runTests:
+        description: 'Run tests before build?'
         required: true
-        default: '1.0.1'
-      environment:
-        description: 'Select environment'
-        required: true
-        default: 'dev'
-        type: choice
-        options:
-          - dev
-          - stage
-          - prod
-      owner:
-        description: 'Owner information'
-        required: true
-        default: 'Rajiv'
+        default: true
+        type: boolean
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Display inputs
-        run: |
-          echo "Version: ${{ github.event.inputs.version }}"
-          echo "Environment: ${{ github.event.inputs.environment }}"
-          echo "Owner: ${{ github.event.inputs.owner }}"
+      - name: Conditional step
+        if: ${{ github.event.inputs.runTests == 'true' }}
+        run: echo "Running tests..."
