@@ -16,14 +16,14 @@ on:
 jobs:
   dev-build:
     if: ${{ github.event.inputs.select-env == 'dev' }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: step1 - dev
         run: echo "Done in dev"
 
   UAT-build:
     if: ${{ github.event.inputs.select-env == 'UAT' }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: step1 - UAT
         run: echo "Done in UAT"
