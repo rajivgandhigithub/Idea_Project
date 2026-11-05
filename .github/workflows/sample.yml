@@ -1,6 +1,6 @@
 name: output pass between steps
 on:
-  push:
+  workflow_dispatch: 
     branches:
       - master
       - main
