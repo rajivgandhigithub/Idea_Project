@@ -1,32 +1,13 @@
-name: pass value between jobs
-on:
-  push:
-    branches:
-      - master
-      - main
+name: Simple Matrix Example
+on: [push]
 
 jobs:
-  # First Job: Generates the value
-  job1:
+  build:
     runs-on: ubuntu-latest
-    # Map the step output to the job level output
-    outputs:
-      job1_status: ${{ steps.step1-id.outputs.status }}
-    steps:
-      - name: Generate the output
-        id: step1-id
-        run: echo "status=done" >> "$GITHUB_OUTPUT"
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
 
-  # Second Job: Consumes the value
-  job2:
-    runs-on: ubuntu-latest
-    # Wait for job1 to complete before starting
-    needs: job1
     steps:
-      - name: Use output from job1
-        # Access the value via needs.<job_id>.outputs.<output_name>
-        run: echo "The status received from job1 is ${{ needs.job1.outputs.job1_status }}"
-
-      - name: Run conditionally based on job1 output
-        if: needs.job1.outputs.job1_status == 'done'
-        run: echo "Condition met! Job1 successfully sent 'done'."
+      - name: Show Current Version
+        run: echo "This specific runner is processing version ${{ matrix.python-version }}"
