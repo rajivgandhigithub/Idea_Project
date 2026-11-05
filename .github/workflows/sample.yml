@@ -1,30 +1,30 @@
-name: if-condition
+name: cicd pipeline
 
 on:
   workflow_dispatch:
     inputs:
-      select-env:
-        description: 'ENV selection'
-        required: true
-        default: 'Please-Select-ENV'
+      Environments:
+        description: "Choose Environments"
         type: choice
+        required: true
+        default: dev
         options:
-          - Please-Select-ENV
           - dev
-          - UAT
+          - Uat
+          - Prod
 
 jobs:
-  dev-build:
-    if: ${{ github.event.inputs.select-env == 'dev' }}
+  build-job:
     runs-on: ubuntu-latest
     steps:
-      - name: step1 - dev
-        run: echo "Done in dev"
+      - name: Deploy to Dev
+        if: ${{ github.event.inputs.Environments == 'dev' }}
+        run: echo "Hi Rajiv please deploy this changes on dev"
 
-  UAT-build:
-    if: ${{ github.event.inputs.select-env == 'UAT' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: step1 - UAT
-        run: echo "Done in UAT"
+      - name: Deploy to UAT
+        if: ${{ github.event.inputs.Environments == 'Uat' }}
+        run: echo "Hi Rajiv please deploy this changes on uat"
 
+      - name: Deploy to Prod
+        if: ${{ github.event.inputs.Environments == 'Prod' }}
+        run: echo "Hi Rajiv please deploy this changes on prod"
