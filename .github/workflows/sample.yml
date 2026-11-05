@@ -12,11 +12,11 @@ jobs:
       - name: step1
         id: step1-id
         run: echo "status=done" >> $GITHUB_OUTPUT
-		
+
       - name: Run if status is done
-        if: ${{ steps.step1-id.outputs.status == 'done' }}
+        if: steps.step1-id.outputs.status == 'done'
         run: echo "Status was ${{ steps.step1-id.outputs.status }}"
-		
+
       - name: Run if status is not done
-        if: ${{ steps.step1-id.outputs.status != 'done' }}
+        if: steps.step1-id.outputs.status != 'done'
         run: echo "Status was ${{ steps.step1-id.outputs.status }}"
