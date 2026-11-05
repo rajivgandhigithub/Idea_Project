@@ -1,0 +1,14 @@
+name: Reusable Greeting
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Hello
+        run: echo "Hello, ${{ inputs.username }}!"
