@@ -1,0 +1,8 @@
+name: Main Pipeline
+on: [push]
+
+jobs:
+  run-template:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      username: "John Doe"
