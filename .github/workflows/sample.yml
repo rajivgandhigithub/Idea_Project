@@ -1,30 +1,22 @@
-name: cicd pipeline
-
+name: output pass between steps
 on:
-  workflow_dispatch:
-    inputs:
-      Environments:
-        description: "Choose Environments"
-        type: choice
-        required: true
-        default: dev
-        options:
-          - dev
-          - Uat
-          - Prod
+  push:
+    branches:
+      - master
+      - main
 
 jobs:
-  build-job:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Dev
-        if: ${{ github.event.inputs.Environments == 'dev' }}
-        run: echo "Hi Rajiv please deploy this changes on dev"
-
-      - name: Deploy to UAT
-        if: ${{ github.event.inputs.Environments == 'Uat' }}
-        run: echo "Hi Rajiv please deploy this changes on uat"
-
-      - name: Deploy to Prod
-        if: ${{ github.event.inputs.Environments == 'Prod' }}
-        run: echo "Hi Rajiv please deploy this changes on prod"
+    steps: 
+      - name: step1
+        id: step1-id
+        run: echo "status=done" >> $GITHUB_OUTPUT
+		
+      - name: Run if status is done
+        if: ${{ steps.step1-id.outputs.status == 'done' }} 	  
+        run: echo "Status was ${{ steps.step1-id.outputs.status }}"
+		
+      - name: Run if status is not done
+        if: ${{ steps.step1-id.outputs.status != 'done' }} 	  
+        run: echo "Status was ${{ steps.step1-id.outputs.status }}"
