@@ -1,8 +1,12 @@
 name: Reusable Greeting
+
 on:
   workflow_call:
     inputs:
       username:
+        required: true
+        type: string
+      fathername:
         required: true
         type: string
 
@@ -12,3 +16,6 @@ jobs:
     steps:
       - name: Print Hello
         run: echo "Hello, ${{ inputs.username }}!"
+        
+      - name: Print Hello father
+        run: echo "Hello, ${{ inputs.fathername }}!"
