@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps: 
-      - name: step1
+      - name: status1
         id: step1-id
         run: echo "status=done" >> $GITHUB_OUTPUT
 		
